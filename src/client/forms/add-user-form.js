@@ -26,6 +26,7 @@ const AddUserForm = (props) => {
         name="name"
         value={user.name}
         onChange={handleInputChange}
+        style={{ border: "1px solid #ccc", backgroundColor: "white" }}
       />
       <label>Username</label>
       <input
@@ -33,8 +34,11 @@ const AddUserForm = (props) => {
         name="username"
         value={user.username}
         onChange={handleInputChange}
+        style={{ border: "1px solid #ccc", backgroundColor: "white" }}
       />
-      <button>Add new user</button>
+      <div style={{ marginBottom: "20px" }}>
+        <button>Add new user</button>
+      </div>
     </form>
   );
 };

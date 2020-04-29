@@ -28,6 +28,7 @@ const EditUserForm = (props) => {
         name="name"
         value={user.name}
         onChange={handleInputChange}
+        style={{ border: "1px solid #ccc", backgroundColor: "white" }}
       />
       <label>Username</label>
       <input
@@ -35,14 +36,17 @@ const EditUserForm = (props) => {
         name="username"
         value={user.username}
         onChange={handleInputChange}
+        style={{ border: "1px solid #ccc", backgroundColor: "white" }}
       />
-      <button>Update user</button>
-      <button
-        onClick={() => props.setEditing(false)}
-        className="button muted-button"
-      >
-        Cancel
-      </button>
+      <div style={{ marginBottom: "20px" }}>
+        <button>Update user</button>
+        <button
+          onClick={() => props.setEditing(false)}
+          style={{ background: "red" }}
+        >
+          Cancel
+        </button>
+      </div>
     </form>
   );
 };

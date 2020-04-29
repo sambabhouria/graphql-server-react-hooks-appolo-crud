@@ -45,8 +45,15 @@ const App = () => {
   return (
     <div className="container">
       <h1>Create Read Updae Delete</h1>
-      <div className="flex-row">
-        <div className="flex-large">
+
+      <div className="flex-row" style={{ marginBottom: "25px" }}>
+        <div
+          className="flex-large"
+          style={{
+            backgroundColor: "#f2f2f2",
+            borderRadius: "15px",
+          }}
+        >
           {editing ? (
             <Fragment>
               <h2>Edit user</h2>
@@ -64,8 +71,14 @@ const App = () => {
             </Fragment>
           )}
         </div>
-        <div className="flex-large">
-          <h2>View users</h2>
+      </div>
+
+      <div className="flex-row">
+        <div
+          className="flex-large"
+          style={{ backgroundColor: "#f2f2f2", borderRadius: "15px" }}
+        >
+          <h2>View Lists Users</h2>
           <UserTable users={users} editRow={editRow} deleteUser={deleteUser} />
         </div>
       </div>

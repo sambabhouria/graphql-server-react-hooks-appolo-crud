@@ -44,7 +44,7 @@ const App = () => {
 
   return (
     <div className="container">
-      <h1>Create Read Updae Delete</h1>
+      <h1>Create Read Updae Delete Users</h1>
 
       <div className="flex-row" style={{ marginBottom: "25px" }}>
         <div

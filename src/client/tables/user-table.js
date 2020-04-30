@@ -6,7 +6,7 @@ const UserTable = (props) => (
       <tr>
         <th>Name</th>
         <th>Username</th>
-        <th>Actions</th>
+        <th style={{ textAlign: "right", paddingRight: "65px" }}>Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -20,10 +20,16 @@ const UserTable = (props) => (
                 onClick={() => {
                   props.editRow(user);
                 }}
+                style={{ float: "right" }}
               >
                 Edit
               </button>
-              <button onClick={() => props.deleteUser(user.id)}>Delete</button>
+              <button
+                onClick={() => props.deleteUser(user.id)}
+                style={{ float: "right" }}
+              >
+                Delete
+              </button>
             </td>
           </tr>
         ))

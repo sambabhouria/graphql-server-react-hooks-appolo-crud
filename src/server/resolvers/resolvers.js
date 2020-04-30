@@ -7,6 +7,7 @@ module.exports = {
     },
     userById: (root, args, context, info) => {
       //args will contain parameter passed in query
+      console.log(args.id);
       return db.users.get(args.id);
     },
     hello: () => "Hello world!",

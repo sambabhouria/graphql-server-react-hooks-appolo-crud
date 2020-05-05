@@ -18,20 +18,21 @@ const client = new ApolloClient({
   cache,
   link: new HttpLink({
     uri: "http://localhost:9000/graphql",
-    headers: {
-      authorization: localStorage.getItem("token"),
-      "client-name": "Space Explorer [web]",
-      "client-version": "1.0.0",
-    },
+    // headers: {
+    //   authorization: localStorage.getItem("token"),
+    //   "client-name": "Space Explorer [web]",
+    //   "client-version": "1.0.0",
+    // },
+    cache: new InMemoryCache(),
   }),
 });
 
-cache.writeData({
-  data: {
-    isLoggedIn: !!localStorage.getItem("token"),
-    cartItems: [],
-  },
-});
+// cache.writeData({
+//   data: {
+//     isLoggedIn: !!localStorage.getItem("token"),
+//     cartItems: [],
+//   },
+// });
 
 /**
  * Render our app
@@ -43,24 +44,22 @@ cache.writeData({
  *    ex: localhost:3000/login will render only the `Login` component
  */
 
-const IS_LOGGED_IN = gql`
-  query IsUserLoggedIn {
-    isLoggedIn @client
-  }
-`;
+// const IS_LOGGED_IN = gql`
+//   query IsUserLoggedIn {
+//     isLoggedIn @client
+//   }
+// `;
 
-function IsLoggedIn() {
-  const { data } = useQuery(IS_LOGGED_IN);
-  return data.isLoggedIn ? <div>connected</div> : <App />;
-}
+// function IsLoggedIn() {
+//   const { data } = useQuery(IS_LOGGED_IN);
+//   return data.isLoggedIn ? <div>connected</div> : <App />;
+// }
 
 ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <IsLoggedIn />
-      {/* <App /> */}
+      <App />
     </ApolloProvider>
-    ,
   </React.StrictMode>,
   document.getElementById("root")
 );

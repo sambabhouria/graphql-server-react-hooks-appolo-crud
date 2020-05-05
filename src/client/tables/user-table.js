@@ -1,31 +1,33 @@
 import React from "react";
 
-const UserTable = (props) => (
+const UserTable = ({ editRow, deleteUser, users: { users } }) => (
   <table>
     <thead>
       <tr>
         <th>Name</th>
         <th>Username</th>
+        <th>email</th>
         <th style={{ textAlign: "right", paddingRight: "65px" }}>Actions</th>
       </tr>
     </thead>
     <tbody>
-      {props.users.length > 0 ? (
-        props.users.map((user) => (
+      {users.length > 0 ? (
+        users.map((user) => (
           <tr key={user.id}>
             <td>{user.name}</td>
             <td>{user.username}</td>
+            <td>{user.email}</td>
             <td>
               <button
                 onClick={() => {
-                  props.editRow(user);
+                  editRow(user);
                 }}
                 style={{ float: "right" }}
               >
                 Edit
               </button>
               <button
-                onClick={() => props.deleteUser(user.id)}
+                onClick={() => deleteUser(user.id)}
                 style={{ float: "right" }}
               >
                 Delete

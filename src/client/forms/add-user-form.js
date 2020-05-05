@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useMutation } from "@apollo/react-hooks";
+import { GET_USERS, ADD_USER } from "../query/query";
 
 const AddUserForm = (props) => {
   const initialFormState = { id: null, name: "", username: "" };
@@ -9,6 +11,29 @@ const AddUserForm = (props) => {
 
     setUser({ ...user, [name]: value });
   };
+
+  const updateCache = (cache, { data }) => {
+    // Fetch the todos from the cache
+    const existingTodos = cache.readQuery({
+      query: GET_USERS,
+    });
+
+    // Add the new todo to the cache
+    const newTodo = data.insert_todos.returning[0];
+    cache.writeQuery({
+      query: GET_USERS,
+      data: { todos: [newTodo, ...existingTodos.todos] },
+    });
+  };
+
+  const resetInput = () => {
+    setUser(initialFormState);
+  };
+
+  const [_addUser] = useMutation(ADD_USER, {
+    update: updateCache,
+    onCompleted: resetInput,
+  });
 
   return (
     <form

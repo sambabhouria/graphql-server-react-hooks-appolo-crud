@@ -12,14 +12,12 @@ const GET_USERS = gql`
 `;
 
 const ADD_USER = gql`
-  mutation($todo: String!, $isPublic: Boolean!) {
-    insert_todos(objects: { title: $todo, is_public: $isPublic }) {
-      affected_rows
+  mutation($name: String!, $username: String!, $email: String!) {
+    addUser(name: $name, username: $username, email: $email) {
       returning {
-        id
-        title
-        created_at
-        is_completed
+        name
+        username
+        email
       }
     }
   }

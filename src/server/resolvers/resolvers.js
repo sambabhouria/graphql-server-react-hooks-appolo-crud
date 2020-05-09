@@ -15,6 +15,8 @@ module.exports = {
   Mutation: {
     // new resolver function ==> Returning an Object in Mutation
     addUser: (root, args, context, info) => {
+      console.log("args", args);
+
       const id = db.users.create({
         id: uuidv4(),
         name: args.name,

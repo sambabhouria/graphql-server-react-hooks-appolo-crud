@@ -12,9 +12,10 @@ const GET_USERS = gql`
 `;
 
 const ADD_USER = gql`
-  mutation($name: String!, $username: String!, $email: String!) {
+  mutation($name: String!, $usernameemail: String!, $: String!) {
     addUser(name: $name, username: $username, email: $email) {
       returning {
+        id
         name
         username
         email

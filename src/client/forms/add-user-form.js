@@ -51,7 +51,7 @@ const AddUserForm = (props) => {
 
         addUser({ variables: { name, username, email } });
 
-        console.log("========user=======", user);
+        console.log("=========user==========", user);
 
         // props.addUser(user);
         // setUser(initialFormState);

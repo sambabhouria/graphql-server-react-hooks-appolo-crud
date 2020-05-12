@@ -12,23 +12,15 @@ const GET_USERS = gql`
 `;
 
 const ADD_USER = gql`
-  mutation($name: String!, $usernameemail: String!, $: String!) {
+  mutation($name: String!, $username: String!, $email: String!) {
     addUser(name: $name, username: $username, email: $email) {
-      returning {
-        id
-        name
-        username
-        email
-      }
+      id
+      name
+      username
+      email
     }
   }
 `;
 
 // export all the important pieces
-
 export { GET_USERS, ADD_USER };
-
-// module.exports = {
-//   GET_USERS,
-//   ADD_USER,
-// };

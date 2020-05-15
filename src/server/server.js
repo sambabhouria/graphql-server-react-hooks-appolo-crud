@@ -50,8 +50,12 @@ const server = new ApolloServer({
 const app = express();
 server.applyMiddleware({ app });
 
-app.listen({ port: port }, () =>
-  console.log(
-    `🚀💪🐞🥂 🐼💳💎 🛳  🦁 🍰 🏅 🔜 Server ready at http://localhost:${port}${server.graphqlPath}`
-  )
+app.listen(
+  { port: port },
+  () =>
+    console.log(
+      `🚀💪🐞🥂 🐼💳💎 🛳  🦁 🍰 🏅 🔜 Server ready at http://localhost:${port}${server.graphqlPath}`
+    )
+  //console.log(`🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`)
+  // console.log(`🚀 Subscriptions ready at ws://localhost:${PORT}${server.subscriptionsPath}`)
 );

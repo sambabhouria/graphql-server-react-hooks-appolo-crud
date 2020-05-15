@@ -1,5 +1,11 @@
 import React, { useState, Fragment } from "react";
-import { useQuery, useMutation } from "@apollo/react-hooks";
+import {
+  useQuery,
+  useMutation,
+  useSubscription,
+  useApolloClient,
+} from "@apollo/react-hooks";
+
 //import gql from "graphql-tag";
 
 import { GET_USERS, ADD_USER } from "./client/query/query";

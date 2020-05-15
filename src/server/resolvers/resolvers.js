@@ -1,6 +1,19 @@
 const db = require("../data-access-layer/db");
 const uuidv4 = require("uuid/v4");
+
+const userAddedSubscribe = (parent, args, context, info) => {
+  console.log("in the userAddedSubscribe==>");
+  //return context.prisma.$subscribe.link({ mutation_in: ["CREATED"] }).node();
+};
+
 module.exports = {
+  Subscription: {
+    userAdded: {
+      // Additional event labels can be passed to asyncIterator creation
+      subscribe: () => console.log("toototo"), //pubsub.asyncIterator([POST_ADDED]),
+    },
+  },
+
   Query: {
     users: (root, args) => {
       return db.users.list();
@@ -26,5 +39,7 @@ module.exports = {
 
       return db.users.get(id);
     },
+    updateUser: (root, args, context, info) => {},
+    deleteUser: (root, args, context, info) => {},
   },
 };

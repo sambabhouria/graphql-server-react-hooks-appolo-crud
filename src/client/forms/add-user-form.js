@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
-import { GET_USERS, ADD_USER } from "../query/query";
+import { ADD_USER } from "../mutations/mutations";
+import { GET_USERS } from "../query/query";
 
 const AddUserForm = (props) => {
   const initialFormState = { id: null, name: "", username: "", email: "" };
@@ -8,9 +9,6 @@ const AddUserForm = (props) => {
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-
-    console.log("handleInputChange -> name, value", name, value);
-
     setUser({ ...user, [name]: value });
   };
 
@@ -18,21 +16,24 @@ const AddUserForm = (props) => {
     console.log("updateCache -> data", data);
     console.log("updateCache -> cache", cache);
 
-    // Fetch the todos from the cache
-    // const existingTodos = cache.readQuery({
-    //   query: GET_USERS,
-    // });
+    // Fetch the users from the cache
+    const existingUsers = cache.readQuery({
+      query: GET_USERS,
+    });
+
+    console.log("updateCache -> existingUsers", existingUsers);
 
     // Add the new todo to the cache
-    // const newTodo = data.insert_todos.returning[0];
-    // cache.writeQuery({
-    //   query: GET_USERS,
-    //   data: { todos: [newTodo, ...existingTodos.todos] },
-    // });
+    const newUser = data;
+    console.log("updateCache -> newUser", newUser);
+
+    cache.writeQuery({
+      query: GET_USERS,
+      data: { users: [newUser, ...existingUsers.users] },
+    });
   };
 
   const resetInput = () => {
-    console.log("on complete");
     setUser(initialFormState);
   };
 
@@ -47,14 +48,7 @@ const AddUserForm = (props) => {
         event.preventDefault();
         if (!user.name || !user.username || !user.email) return;
         const { name, username, email } = user;
-        console.log("user", user);
-
         addUser({ variables: { name, username, email } });
-
-        console.log("=========user==========", user);
-
-        // props.addUser(user);
-        // setUser(initialFormState);
       }}
     >
       <label>Name</label>

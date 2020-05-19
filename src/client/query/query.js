@@ -11,16 +11,5 @@ const GET_USERS = gql`
   }
 `;
 
-const ADD_USER = gql`
-  mutation($name: String!, $username: String!, $email: String!) {
-    addUser(name: $name, username: $username, email: $email) {
-      id
-      name
-      username
-      email
-    }
-  }
-`;
-
 // export all the important pieces
-export { GET_USERS, ADD_USER };
+export { GET_USERS };

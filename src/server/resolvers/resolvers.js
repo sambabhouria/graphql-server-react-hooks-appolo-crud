@@ -28,18 +28,27 @@ module.exports = {
   Mutation: {
     // new resolver function ==> Returning an Object in Mutation
     addUser: (root, args, context, info) => {
-      console.log("args========>", args);
-
       const id = db.users.create({
         id: uuidv4(),
         name: args.name,
         username: args.username,
         email: args.email,
       });
-
       return db.users.get(id);
     },
-    updateUser: (root, args, context, info) => {},
-    deleteUser: (root, args, context, info) => {},
+    updateUser: (root, args, context, info) => {
+      db.users.update({
+        id: args.id,
+        name: args.name,
+        username: args.username,
+        email: args.email,
+      });
+      return db.users.get(args.id);
+    },
+    deleteUser: (root, args, context, info) => {
+      const userToDelete = db.users.get(args.id);
+      db.users.delete(args.id);
+      return userToDelete;
+    },
   },
 };

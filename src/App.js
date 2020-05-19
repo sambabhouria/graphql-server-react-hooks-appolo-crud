@@ -8,7 +8,8 @@ import {
 
 //import gql from "graphql-tag";
 
-import { GET_USERS, ADD_USER } from "./client/query/query";
+import { GET_USERS } from "./client/query/query";
+import { DELETE_USER } from "./client/mutations/mutations";
 
 import AddUserForm from "./client/forms/add-user-form";
 import EditUserForm from "./client/forms/edit-user-form";
@@ -37,10 +38,25 @@ const App = () => {
     setUsers([...users, user]);
   };
 
-  const deleteUser = (id) => {
-    setEditing(false);
+  const resetInput = () => {
+    setCurrentUser(initialFormState);
+  };
 
-    setUsers(users.filter((user) => user.id !== id));
+  const updateCache = (cache, { data }) => {
+    console.log("updateCache -> data", data);
+    console.log("updateCache -> cache", cache);
+  };
+
+  const [deleteUserMutation] = useMutation(DELETE_USER, {
+    update: updateCache,
+    onCompleted: resetInput,
+  });
+
+  const deleteUser = (id) => {
+    console.log("deleteUser -> id", id);
+    deleteUserMutation({ variables: { id } });
+
+    setEditing(false);
   };
 
   const updateUser = (id, updatedUser) => {
@@ -52,7 +68,12 @@ const App = () => {
   const editRow = (user) => {
     setEditing(true);
 
-    setCurrentUser({ id: user.id, name: user.name, username: user.username });
+    setCurrentUser({
+      id: user.id,
+      name: user.name,
+      username: user.username,
+      email: user.email,
+    });
   };
 
   if (loading) {
@@ -62,6 +83,7 @@ const App = () => {
     console.error(error);
     return <div>Error!</div>;
   }
+
   return (
     <div className="container">
       <h1>Create Read Updae Delete Users</h1>

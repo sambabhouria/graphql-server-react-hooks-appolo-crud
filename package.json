@@ -16,6 +16,7 @@
     "apollo-link-context": "^1.0.20",
     "apollo-link-http": "^1.5.17",
     "apollo-link-ws": "^1.0.20",
+    "apollo-server": "^2.14.1",
     "apollo-server-express": "^2.12.0",
     "axios": "^0.19.2",
     "bcryptjs": "^2.4.3",
@@ -24,6 +25,7 @@
     "express": "^4.17.1",
     "express-jwt": "^5.3.3",
     "graphql": "^15.0.0",
+    "graphql-subscriptions": "^1.1.0",
     "graphql-tag": "^2.10.3",
     "isemail": "^3.2.0",
     "jquery": "^3.5.0",
@@ -40,7 +42,8 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
     "subscriptions-transport-ws": "^0.9.16",
-    "uuid": "^7.0.3"
+    "uuid": "^7.0.3",
+    "uuidv4": "^6.2.0"
   },
   "scripts": {
     "start": "npm-run-all --parallel reactstart serverstart ",

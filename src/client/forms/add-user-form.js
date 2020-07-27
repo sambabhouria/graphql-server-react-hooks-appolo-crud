@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { uuid } from 'uuidv4';
 import { useMutation } from "@apollo/react-hooks";
 import { ADD_USER } from "../mutations/mutations";
 import { GET_USERS } from "../query/query";
@@ -15,8 +16,7 @@ const AddUserForm = (props) => {
   const updateCache = (cache, { data }) => {
     console.log("updateCache -> data", data);
     console.log("updateCache -> cache", cache);
-
-    // Fetch the users from the cache
+   // Fetch the users from the cache
     const existingUsers = cache.readQuery({
       query: GET_USERS,
     });
@@ -48,7 +48,10 @@ const AddUserForm = (props) => {
         event.preventDefault();
         if (!user.name || !user.username || !user.email) return;
         const { name, username, email } = user;
-        addUser({ variables: { name, username, email } });
+        const id  =  uuid()
+        addUser({ variables: { id, name, username, email } });
+        const newUser = {id , name, username, email}
+        props.addUser(newUser)
       }}
     >
       <label>Name</label>

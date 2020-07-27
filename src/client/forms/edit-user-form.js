@@ -36,8 +36,8 @@ const EditUserForm = (props) => {
   };
 
   const resetInput = () => {
-    console.log("<===================>", props);
     props.setEditing(false);
+    props.updateUser (user.id, user)
   };
 
   const [edditUser] = useMutation(UPDATE_USER, {

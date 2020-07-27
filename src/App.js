@@ -1,13 +1,8 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment,useEffect } from "react";
 import {
   useQuery,
-  useMutation,
-  useSubscription,
-  useApolloClient,
+  useMutation
 } from "@apollo/react-hooks";
-
-//import gql from "graphql-tag";
-
 import { GET_USERS } from "./client/query/query";
 import { DELETE_USER } from "./client/mutations/mutations";
 
@@ -16,25 +11,17 @@ import EditUserForm from "./client/forms/edit-user-form";
 import UserTable from "./client/tables/user-table";
 
 const App = () => {
-  // Data
-  const { loading, error, data } = useQuery(GET_USERS);
-  // const donneUtilisation = data;
-  const usersData = [
-    { id: 1, name: "Tania", username: "floppydiskette" },
-    { id: 2, name: "Craig", username: "siliconeidolon" },
-    { id: 3, name: "Ben", username: "benisphere" },
-  ];
 
+  const { loading, error, data } = useQuery(GET_USERS);
   const initialFormState = { id: null, name: "", username: "" };
 
   // Setting state
-  const [users, setUsers] = useState(usersData);
+  const [ users, setUsers ] = useState([])
   const [currentUser, setCurrentUser] = useState(initialFormState);
   const [editing, setEditing] = useState(false);
 
   // CRUD operations
   const addUser = (user) => {
-    user.id = users.length + 1;
     setUsers([...users, user]);
   };
 
@@ -55,14 +42,12 @@ const App = () => {
   const deleteUser = (id) => {
     console.log("deleteUser -> id", id);
     deleteUserMutation({ variables: { id } });
-
-    setEditing(false);
+    setEditing(false)
+	  setUsers(users.filter(user => user.id !== id))
   };
 
   const updateUser = (id, updatedUser) => {
-    setEditing(false);
-
-    setUsers(users.map((user) => (user.id === id ? updatedUser : user)));
+     setUsers(users.map((user) => (user.id === id ? updatedUser : user)));
   };
 
   const editRow = (user) => {
@@ -76,6 +61,15 @@ const App = () => {
     });
   };
 
+  useEffect(
+    () => {
+      if (!loading && !error) {
+        const {users} = data
+        setUsers(users)
+      }
+    },
+    [ data,loading,error ]
+  )
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -87,6 +81,7 @@ const App = () => {
   return (
     <div className="container">
       <h1>Create Read Updae Delete Users</h1>
+        {console.log("users", users)}
       <div className="flex-row" style={{ marginBottom: "25px" }}>
         <div
           className="flex-large"
@@ -108,7 +103,7 @@ const App = () => {
           ) : (
             <Fragment>
               <h2>Add user</h2>
-              <AddUserForm addUser={addUser} />
+              <AddUserForm  addUser={addUser}  />
             </Fragment>
           )}
         </div>
@@ -119,7 +114,7 @@ const App = () => {
           style={{ backgroundColor: "#f2f2f2", borderRadius: "15px" }}
         >
           <h2>View Lists Users</h2>
-          <UserTable users={data} editRow={editRow} deleteUser={deleteUser} />
+          <UserTable users={{users}} editRow={editRow} deleteUser={deleteUser} />
         </div>
       </div>
     </div>

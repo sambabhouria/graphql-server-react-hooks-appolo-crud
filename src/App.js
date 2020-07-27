@@ -81,7 +81,6 @@ const App = () => {
   return (
     <div className="container">
       <h1>Create Read Updae Delete Users</h1>
-        {console.log("users", users)}
       <div className="flex-row" style={{ marginBottom: "25px" }}>
         <div
           className="flex-large"
